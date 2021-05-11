@@ -18,5 +18,39 @@ class Fee{
     private int childFee(){
         return baseFee * 0.5;
     }
+
+
+    /**
+     * Smart Conditional branch
+     */
+    // BAD
+    Yen fee() {
+        Yen result;
+        if (isChild()) {
+            result = childFee();
+        } else if (isSenior()){
+            result = seniorFee();
+        }else {
+            result = adaltFee();
+        }
+
+        return result;
+    }
     
+    // GOOD
+    Yen fee() {
+        if (isChild()) {
+            return childFee();
+        } else if (isSenior()) {
+            return seniorFee();
+        } else {
+            return adaltFee();
+        }
+    }
+
+    Yen fee() {
+        if (isChild()) return childFee();
+        if (isSenior()) return seniorFee();
+        return adaltFee();
+    }
 }
